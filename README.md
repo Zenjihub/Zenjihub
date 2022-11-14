@@ -171,36 +171,3 @@ section2:AddDropdown({
 for i,v in pairs(getconnections(Player.Idled)) do 
     v:Disable()
 end
-
-    while wait() do
-        for _, v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
-            if v.Name == "LootChest" then
-    
-                for _, c in pairs(v:FindFirstChild("Drops"):GetChildren()) do
-                    if game:GetService("ReplicatedStorage")["Player_Data"][game.Players.LocalPlayer.Name].Inventory.Items:FindFirstChild(c.Name) then
-                        if game:GetService("ReplicatedStorage")["Player_Data"][game.Players.LocalPlayer.Name].Inventory.Items:FindFirstChild(c.Name):FindFirstChild("CanHaveMoreThenOne").Value == true then
-                            local args = {
-                                [1] = c.Name,
-                            }
-    
-                            v["Add_To_Inventory"]:InvokeServer(unpack(args))
-    
-                            delay(0.5, function()
-                                c:Destroy()
-                            end)
-                        end
-                    else
-                        local args = {
-                            [1] = c.Name,
-                        }
-    
-                        v["Add_To_Inventory"]:InvokeServer(unpack(args))
-    
-                        delay(0.5, function()
-                            c:Destroy()
-                        end)
-                    end
-                end
-            end
-        end
-    end
