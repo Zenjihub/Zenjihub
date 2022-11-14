@@ -157,20 +157,6 @@ section2:AddToggle({
     end 
 })
 
-section1:AddToggle({
-    Name = "ฮีล", 
-    Value = false, 
-    Flag = "GM", 
-    Callback = function(state)
-        e = state 
-        if e then 
-            ReplicatedStorage.Remotes.heal_tang123asd:FireServer(true)
-        else 
-            ReplicatedStorage.Remotes.heal_tang123asd:FireServer(false)
-        end 
-    end 
-})
-
 
 section2:AddDropdown({
     Name = "เลือกอาวุธ", 
