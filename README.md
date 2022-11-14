@@ -115,7 +115,7 @@ section1:AddToggle({
         while a do 
             local target = getclosestmob() 
             if target and target:FindFirstChild("HumanoidRootPart")and (target.Name:match("Civilian") or target.Name:match("Demon")) then 
-                HumanoidRootPart.CFrame = CFrame.new(target.HumanoidRootPart.Position + target.HumanoidRootPart.CFrame.LookVector * 6, target.HumanoidRootPart.Position)
+                HumanoidRootPart.CFrame = CFrame.new(target.HumanoidRootPart.Position + target.HumanoidRootPart.CFrame.LookVector * 7, target.HumanoidRootPart.Position)
             end 
             task.wait()
         end 
@@ -156,6 +156,21 @@ section2:AddToggle({
         end 
     end 
 })
+
+section1:AddToggle({
+    Name = "ฮีล", 
+    Value = false, 
+    Flag = "GM", 
+    Callback = function(state)
+        e = state 
+        if e then 
+            ReplicatedStorage.Remotes.heal_tang123asd:FireServer(true)
+        else 
+            ReplicatedStorage.Remotes.heal_tang123asd:FireServer(false)
+        end 
+    end 
+})
+
 
 section2:AddDropdown({
     Name = "เลือกอาวุธ", 
