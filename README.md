@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 
 repeat wait() until game:IsLoaded() 
 
@@ -137,8 +138,18 @@ section2:AddToggle({
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 3, nil, nil, 99999)
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 4, nil, nil, 99999)
                 last = game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(c, Player, Character, HumanoidRootPart, Humanoid, 919, nil, nil, 99999)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 1, nil, nil, 99999)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 2, nil, nil, 99999)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 3, nil, nil, 99999)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 4, nil, nil, 99999)
+                last = game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(c, Player, Character, HumanoidRootPart, Humanoid, 919, nil, nil, 99999)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 1, nil, nil, 99999)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 2, nil, nil, 99999)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 3, nil, nil, 99999)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(c, Player, Character, HumanoidRootPart, Humanoid, 4, nil, nil, 99999)
+                last = game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(c, Player, Character, HumanoidRootPart, Humanoid, 919, nil, nil, 99999)
                 repeat Heartbeat:Wait() until last ~= 9999 
-                task.wait(1.3)
+                task.wait()
                 debounce = false 
             end 
             task.wait()
@@ -147,8 +158,8 @@ section2:AddToggle({
 })
 
 section2:AddDropdown({
-    Name = "Select Weapon", 
-    Nothing = "Select Weapon..", 
+    Name = "เลือกอาวุธ", 
+    Nothing = "ไม่มีอะไรเลย..", 
     List = {"fist_combat", "Sword_Combat_Slash", "claw_Combat_Slash", "Scythe_Combat_Slash"}, 
     Flag = "SW", 
     Callback = function(selected)
@@ -159,3 +170,36 @@ section2:AddDropdown({
 for i,v in pairs(getconnections(Player.Idled)) do 
     v:Disable()
 end
+
+    while wait() do
+        for _, v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
+            if v.Name == "LootChest" then
+    
+                for _, c in pairs(v:FindFirstChild("Drops"):GetChildren()) do
+                    if game:GetService("ReplicatedStorage")["Player_Data"][game.Players.LocalPlayer.Name].Inventory.Items:FindFirstChild(c.Name) then
+                        if game:GetService("ReplicatedStorage")["Player_Data"][game.Players.LocalPlayer.Name].Inventory.Items:FindFirstChild(c.Name):FindFirstChild("CanHaveMoreThenOne").Value == true then
+                            local args = {
+                                [1] = c.Name,
+                            }
+    
+                            v["Add_To_Inventory"]:InvokeServer(unpack(args))
+    
+                            delay(0.5, function()
+                                c:Destroy()
+                            end)
+                        end
+                    else
+                        local args = {
+                            [1] = c.Name,
+                        }
+    
+                        v["Add_To_Inventory"]:InvokeServer(unpack(args))
+    
+                        delay(0.5, function()
+                            c:Destroy()
+                        end)
+                    end
+                end
+            end
+        end
+    end
